@@ -83,6 +83,7 @@ target_link_libraries(cxxblog
     ${LIBWTDBO}
     ${Boost_LIBRARIES}
     libcmark
+    stdc++fs
 )
 
 if (LIBWTDBO_SQLITE)

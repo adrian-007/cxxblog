@@ -73,12 +73,15 @@ if (NOT LIBWT OR NOT LIBWTHTTP OR NOT LIBWTDBO OR (NOT LIBWTDBO_SQLITE AND NOT L
     message(FATAL_ERROR "Cannot find Wt libraries")
 endif()
 
+find_package(Boost REQUIRED COMPONENTS system)
+
 add_executable(cxxblog ${SOURCES})
 target_include_directories(cxxblog PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(cxxblog
     ${LIBWT}
     ${LIBWTHTTP}
     ${LIBWTDBO}
+    ${Boost_LIBRARIES}
     libcmark
 )
 

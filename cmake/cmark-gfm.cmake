@@ -10,7 +10,7 @@ ExternalProject_Add(cmark_gfm
     -DCMARK_LIB_FUZZER:BOOL=OFF
     -DCMAKE_BUILD_TYPE:STRING=RelWithDbgInfo
     -DCMAKE_INSTALL_PREFIX:STRING=${CMAKR_INSTALL_PREFIX}
-    )
+)
 
 add_library(libcmark INTERFACE)
 add_dependencies(libcmark cmark_gfm)

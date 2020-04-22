@@ -66,7 +66,7 @@ find_library(LIBWT               NAMES wtd wt)
 find_library(LIBWTHTTP           NAMES wthttpd wthttp)
 find_library(LIBWTDBO            NAMES wtdbod wtdbo)
 find_library(LIBWTDBO_SQLITE     NAMES wtdbosqlite3d wtdbosqlite3)
-find_library(LIBWTDBO_POSTGRES   NAMES wtdbopostgresd wtdbopostgresd)
+find_library(LIBWTDBO_POSTGRES   NAMES wtdbopostgresd wtdbopostgres)
 find_library(LIBWTDBO_MYSQL      NAMES wtdbomysqld wtdbomysql)
 
 if (NOT LIBWT OR NOT LIBWTHTTP OR NOT LIBWTDBO OR (NOT LIBWTDBO_SQLITE AND NOT LIBWTDBO_POSTGRES AND LIBWTDBO_MYSQL))
@@ -87,14 +87,17 @@ target_link_libraries(cxxblog
 )
 
 if (LIBWTDBO_SQLITE)
+    message(" -- Adding SQLite3 Wt::Dbo backend: ${LIBWTDBO_SQLITE}")
     target_link_libraries(cxxblog ${LIBWTDBO_SQLITE})
 endif()
 
 if (LIBWTDBO_POSTGRES)
+    message(" -- Adding PostgreSQL Wt::Dbo backend: ${LIBWTDBO_POSTGRES}")
     target_link_libraries(cxxblog ${LIBWTDBO_POSTGRES})
 endif()
 
 if (LIBWTDBO_MYSQL)
+    message(" -- Adding MySQL Wt::Dbo backend: ${LIBWTDBO_MYSQL}")
     target_link_libraries(cxxblog ${LIBWTDBO_MYSQL})
 endif()
 

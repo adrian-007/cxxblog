@@ -1,0 +1,29 @@
+<server>
+    <application-settings location="*">
+        <!--
+            Max request size in KB. In Wt it defaults to 128, but that prevents us from
+            uploading attachment exceeding this value. Since this value cannot be set
+            at runtime nor for a particular URL/application section, it is overwritten
+            by a configuration property to 5 MB.
+        -->
+        <max-request-size>5120</max-request-size>
+
+        <properties>
+            <!-- Relative URL that points to login page. -->
+            <property name="loginPath">login</property>
+
+            <!--
+                Database type, property can set to one of the following values:
+
+                sqlite
+                postgres
+                mysql
+
+                Wt must be compiled with appropriate backend support in order to work with it.
+                If given backend is not supported, cxxblog will throw an exception and exit.
+            -->
+            <property name="dbType">sqlite</property>
+        </properties>
+
+    </application-settings>
+</server>

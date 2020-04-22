@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<messages>
+    <!-- Fix navigation bar layout -->
+    <message id="Wt.WNavigationBar.template">
+        <div class="container">
+            ${collapse-button}
+            <div class="navbar-header">
+                ${expand-button}
+                ${title-link}
+            </div>
+            ${contents}
+        </div>
+    </message>
+
+    <!-- Loading view -->
+    <message id="loadingView">
+        <div class="loadingViewContainer">
+            <div class="loadingView text-center">
+                <div class="loadingViewMessage text-center">${message}</div>
+            </div>
+        </div>
+    </message>
+
+    <!-- Main View -->
+    <message id="mainView">
+        ${navbar}
+
+        <div class="contentView">
+            <div class="row">
+                <div class="col-sm-12">
+                    ${content}
+                </div>
+            </div>
+        </div>
+
+        <div class="mainViewFooter">
+            ${footer}
+        </div>
+
+    </message>
+
+    <message id="mainView.errorMessage">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger text-center">
+                    ${errorMessage}
+                </div>
+            </div>
+        </div>
+    </message>
+
+    <!-- Posts List View -->
+
+    <message id="postView.itemsList">
+        <div class="row">
+            <div class="col-sm-12">
+                ${items}
+            </div>
+        </div>
+    </message>
+
+    <message id="postView.itemsList.item">
+        <div class="row" style="margin-bottom: 60px;">
+            <div class="col-sm-12">
+                <h2>${title}</h2>
+
+                <div class="postContent">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            ${intro}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <small>${link}</small>
+                    </div>
+                    <div class="col-sm-offset-4 col-sm-4 text-right">
+                        ${visibility class="label"}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </message>
+
+    <!-- Post View -->
+
+    <message id="postView">
+        ${toolbar}
+        ${infoMessage}
+
+        <div class="row">
+            ${view class="col-sm-12"}
+        </div>
+    </message>
+
+    <message id="postView.toolbar">
+        <div class="row panel panel-info">
+            ${toolbar class="col-sm-12 panel-body"}
+        </div>
+    </message>
+
+    <message id="postView.infoMessage">
+        <div class="row">
+            ${infoMessage class="col-sm-12 alert alert-warning"}
+        </div>
+    </message>
+
+    <message id="postView.show">
+        <h2 class="postViewTitle">${title}</h2>
+
+        <h5 class="clearfix postHeader" style="margin-bottom: 40px;">
+            <div class="pull-left">
+                <div class="pull-left">
+                    ${avatar class="img-responsive"}
+                </div>
+
+                <div class="pull-left" style="padding-left: 10px;">
+                    <small>Written by ${author}</small>
+                    <br/>
+                    <small>Published on ${created}</small>
+                </div>
+            </div>
+
+            <div class="pull-right">
+                ${shareButtons class="pull-right text-right shareButtons"}
+            </div>
+        </h5>
+
+        <div class="postContent">
+            <p class="lead">${intro}</p>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    ${content}
+                </div>
+            </div>
+        </div>
+    </message>
+
+    <message id="postView.shareButtons">
+        <span class="small">${tr:str.share}</span>
+        <br/>
+        <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=${encodedPostUrl}"><i class="fab fa-linkedin"></i></a>
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodedPostUrl}"><i class="fab fa-facebook"></i></a>
+        <a target="_blank" href="https://twitter.com/share?url=${encodedPostUrl}"><i class="fab fa-twitter"></i></a>
+    </message>
+
+    <message id="postView.edit">
+        <div class="form-group">
+            <label class="control-label" for="${id:title}">Title</label>
+            ${title}
+            <span class="help-block">
+                ${title-info}
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="${id:intro}">Intro</label>
+            ${intro}
+            <span class="help-block">
+                ${intro-info}
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="${id:content}">Content</label>
+            ${content}
+            <span class="help-block">
+                ${content-info}
+            </span>
+        </div>
+    </message>
+
+    <!-- Settings View -->
+
+    <message id="settings.editorForm.personalInformation">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="${id:name}" class="col-sm-2 control-label">${tr:str.name}:</label>
+
+                <div class="col-sm-5">
+                    ${name}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${name-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:handle}" class="col-sm-2 control-label">${tr:str.handle}:</label>
+
+                <div class="col-sm-5">
+                    ${handle}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${handle-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:avatar}" class="col-sm-2 control-label">${tr:str.avatar}:</label>
+
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            ${avatar}
+                            ${avatarUpload}
+                        </div>
+
+                        <div class="col-xs-6">
+                            ${useDefaultAvatar class="pull-right"}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    ${avatar-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:aboutMe}" class="col-sm-2 control-label">${tr:str.aboutMe}:</label>
+
+                <div class="col-sm-5">
+                    ${aboutMe}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${aboutMe-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    ${saveButton class="btn btn-default"} <span class="help-inline">${saveResultInfo}</span>
+                </div>
+            </div>
+        </div>
+    </message>
+
+    <message id="settings.editorForm.contactDetails">
+        <div class="row" style="margin-bottom: 16px;">
+            <div class="col-xs-2"><strong>${tr:str.label}</strong></div>
+            <div class="col-xs-3"><strong>${tr:str.value}</strong></div>
+            <div class="col-xs-1"><strong>${tr:str.type}</strong></div>
+            <div class="col-xs-1"><strong>${tr:str.visibility}</strong></div>
+            <div class="col-xs-5">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">${items}</div>
+        </div>
+
+        <div class="row" style="margin-top: 16px;">
+            <div class="col-xs-offset-2 col-xs-5">${addContactDetailButton class="btn btn-default"}</div>
+        </div>
+
+    </message>
+
+    <message id="settings.editorForm.contactDetails.edit">
+        <div class="">
+            <div class="form-group">
+                <label for="${id:label}" class="col-sm-3 control-label">${tr:str.label}:</label>
+                ${label}
+                <span class="help-block">${label-info}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:value}" class="col-sm-2 control-label">${tr:str.value}:</label>
+                ${value}
+                <span class="help-block">${value-info}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:type}" class="col-sm-2 control-label">${tr:str.type}:</label>
+                ${type}
+                <span class="help-block">${type-info}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:iconHint}" class="col-sm-2 control-label">${tr:str.iconHint}:</label>
+                ${iconHint}
+                <span class="help-block">${iconHint-info}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:visibility}" class="col-sm-2 control-label">${tr:str.visibility}:</label>
+                ${visibility}
+                <span class="help-block">${visibility-info}</span>
+            </div>
+        </div>
+    </message>
+
+    <message id="settings.editorForm.contactDetails.show">
+        <div class="row" style="margin-bottom: 5px;">
+            <div class="col-xs-2"><i class="${iconHint}"></i> ${label}</div>
+            <div class="col-xs-3">${value}</div>
+            <div class="col-xs-1">${type}</div>
+            <div class="col-xs-1">${visibility}</div>
+            <div class="col-xs-5 btn-group">${editButton class="btn btn-default"} ${deleteButton class="btn btn-default"}</div>
+        </div>
+    </message>
+
+    <message id="settings.editorForm.changeCredentials">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="${id:newUsername}" class="col-sm-2 control-label">${tr:str.newUsername}:</label>
+
+                <div class="col-sm-5">
+                    ${newUsername}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${newUsername-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:newPassword}" class="col-sm-2 control-label">${tr:str.newPassword}:</label>
+
+                <div class="col-sm-5">
+                    ${newPassword}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${newPassword-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:confirmNewPassword}" class="col-sm-2 control-label">${tr:str.retypeNewPassword}:</label>
+
+                <div class="col-sm-5">
+                    ${confirmNewPassword}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${confirmNewPassword-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:currentPassword}" class="col-sm-2 control-label">${tr:str.currentPassword}:</label>
+
+                <div class="col-sm-5">
+                    ${currentPassword}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${currentPassword-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    ${saveButton class="btn btn-default"} <span class="help-inline">${saveResultInfo}</span>
+                </div>
+            </div>
+        </div>
+    </message>
+
+    <message id="settings.siteConfigForm">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="${id:name}" class="col-sm-2 control-label">${tr:str.siteName}:</label>
+
+                <div class="col-sm-5">
+                    ${name}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${name-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:about}" class="col-sm-2 control-label">${tr:str.aboutPage}:</label>
+
+                <div class="col-sm-5">
+                    ${about}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${about-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:footer}" class="col-sm-2 control-label">${tr:str.footer}:</label>
+
+                <div class="col-sm-5">
+                    ${footer}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${footer-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    ${saveButton class="btn btn-default"} <span class="help-inline">${saveResultInfo}</span>
+                </div>
+            </div>
+        </div>
+    </message>
+
+    <!-- Job Offers View -->
+    <message id="jobOffers.itemsList">
+        <div class="row">
+            <div class="col-sm-12">
+                ${items}
+            </div>
+        </div>
+    </message>
+
+    <!-- Editor View -->
+    <message id="editorView">
+        <div class="row">
+            <div class="col-xs-4 col-sm-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        ${avatar class="img-responsive"}
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-xs-12">
+                        ${contactDetails}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-8 col-sm-10">
+                <h1>${name}</h1>
+                <br/>
+
+                ${aboutMe}
+            </div>
+        </div>
+    </message>
+
+    <message id="editorView.contactDetail">
+        <div class="row">
+            <div class="col-xs-12">
+                <small><i class="${iconHint}"></i> ${label} ${value} </small>
+            </div>
+        </div>
+    </message>
+
+    <!-- Manage Attachments Widget View -->
+    <message id="manageAttachmentsWidgetView.itemsList">
+        <div class="row">
+            <div class="col-xs-12">
+                ${items}
+            </div>
+        </div>
+    </message>
+
+    <message id="manageAttachmentsWidgetView.item">
+        <div class="row" style="margin: 10px;">
+            <div class="col-xs-1">${icon}</div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-xs-2 text-right"><strong>${tr:str.name}:</strong></div>
+                    <div class="col-xs-4" style="overflow-wrap: break-word;">${name}</div>
+
+                    <div class="col-xs-2 text-right"><strong>${tr:str.mimeType}:</strong></div>
+                    <div class="col-xs-4">${mimeType}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-2 text-right"><strong>${tr:str.identifier}:</strong></div>
+                    <div class="col-xs-4">${itemId}</div>
+
+                    <div class="col-xs-2 text-right"><strong>${tr:str.created}:</strong></div>
+                    <div class="col-xs-4">${created}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-offset-6 col-xs-2 text-right"><strong>${tr:str.size}:</strong></div>
+                    <div class="col-xs-4">${size} B</div>
+                </div>
+            </div>
+            <div class="col-xs-1 text-right">
+                ${deleteButton}
+            </div>
+        </div>
+
+        <hr/>
+    </message>
+
+    <message id="manageAttachmentsWidgetView.upload">
+        ${file}
+
+        <div class="form-inline">
+            <div class="form-group" style="margin-right: 10px;">
+                <label for="${id:status}" class="control-label">${tr:str.status}:</label>
+                ${status}
+            </div>
+
+            <div class="form-group" style="margin-right: 10px;">
+                ${progressBar}
+            </div>
+
+            <div class="form-group" style="margin-right: 10px;">
+                ${selectFile}
+            </div>
+
+            <div class="form-group" style="margin-right: 10px;">
+                <label for="${id:name}" class="control-label">${tr:str.name}:</label>
+                ${name}
+            </div>
+
+            <div class="form-group">
+                ${save class="btn btn-default"}
+            </div>
+        </div>
+    </message>
+
+    <message id="expressions.image">
+        <div class="expression-image">
+            <div class="row">
+                <div class="col-xs-12 col-md-offset-2 col-md-8 text-center">
+                    <div class="exp-img">
+                        <a href="${imageLink}" target="_blank>">
+                            <img class="img-responsive" src="${imageLink}"/>
+                        </a>
+
+                        ${caption class="exp-caption"}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </message>
+
+</messages>

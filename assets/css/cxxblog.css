@@ -1,0 +1,138 @@
+/* Imports */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@400;500;600&family=Quicksand:wght@400;500;600&display=swap&subset=latin-ext");
+
+body {
+    font-family: "Quicksand script=latin rev=2", "Quicksand", "Open Sans script=latin rev=2", "Open Sans", sans-serif;
+    padding-top: 70px;
+    min-height: 2000px;
+}
+
+.d-none {
+    display: none
+}
+
+/* I can't figure out what gives WProgressBar "help-block" style... */
+div.help-block.progress {
+    margin-top: 0px;
+}
+
+/* Bootstrap customizations */
+div.navbar-default {
+    background: #fafafa;
+    border-color: #c0c0c0;
+}
+
+button.btn {
+    font-family: "Open Sans", sans-serif;
+}
+
+/* Scroll content inside dialog box. From https://stackoverflow.com/questions/21590213/fixed-header-position-in-bootstrap-3-modal/23324116#23324116 */
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+/* cxxblog theme styles */
+
+div.loadingViewContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffffaa;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+}
+
+div.loadingViewContainer div.loadingView {
+    position: relative;
+    left: 50vw;
+
+    margin-left: -12.5vw;
+    width: 25vw;
+
+    margin-top: 25vh;
+
+    background: #eeeeee;
+    border: 1px dotted #c0c0c0;
+}
+
+div.loadingViewContainer div.loadingView div.loadingViewMessage {
+    padding: 60px;
+}
+
+div.contentView {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+@media (min-width: 768px) {
+    div.contentView {
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+}
+
+div.contentView .postViewTitle {
+    margin-bottom: 30px;
+}
+
+div.contentView .postHeader div.shareButtons > a > i {
+    font-size: large;
+}
+
+div.contentView div.postContent {
+    font-family: "Quicksand script=latin rev=2", "Quicksand", sans-serif;
+    color: #606060;
+}
+
+div.contentView div.postContent pre {
+    background: #fcfcfc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div.contentView div.postContent code {
+    background: #e3e3e3;
+}
+
+div.contentView div.postContent pre code {
+    background: transparent;
+}
+
+div.contentView div.postContent p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+div.mainViewFooter {
+    margin: 30px;
+    text-align: center;
+    font-size: large;
+    font-family: "Dancing Script", "Quicksand", "Open Sans", sans-serif;
+}
+
+/* Expression styles */
+div.expression-image {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div.expression-image div.exp-img {
+    display: inline-block;
+    padding: 6px;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+
+    overflow-wrap: break-word;
+    font-size: small;
+    font-style: italic;
+}
+
+div.expression-image div.exp-img a {
+    display: inline-block;
+}
+
+div.expression-image div.exp-img .exp-caption {
+    display: block;
+}

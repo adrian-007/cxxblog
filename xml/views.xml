@@ -142,7 +142,7 @@
     <message id="postView.shareButtons">
         <span class="small">${tr:str.share}</span>
         <br/>
-        <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=${encodedPostUrl}"><i class="fab fa-linkedin"></i></a>
+        <a target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedPostUrl}"><i class="fab fa-linkedin"></i></a>
         <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodedPostUrl}"><i class="fab fa-facebook"></i></a>
         <a target="_blank" href="https://twitter.com/share?url=${encodedPostUrl}"><i class="fab fa-twitter"></i></a>
     </message>

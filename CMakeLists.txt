@@ -1,11 +1,12 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.14)
 project(cxxblog)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include(ExternalProject)
 set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_BINARY_DIR}/deps)
 
+include(GNUInstallDirs)
+include(ExternalProject)
 include(cmake/cmark-gfm.cmake)
 
 set(SOURCES
@@ -78,27 +79,31 @@ find_package(Boost REQUIRED COMPONENTS system)
 add_executable(cxxblog ${SOURCES})
 target_include_directories(cxxblog PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(cxxblog
+    PUBLIC
     ${LIBWT}
     ${LIBWTHTTP}
     ${LIBWTDBO}
     ${Boost_LIBRARIES}
-    libcmark
     stdc++fs
+
+    PRIVATE
+    libcmark
+    libcmark-gfm
 )
 
 if (LIBWTDBO_SQLITE)
     message(" -- Adding SQLite3 Wt::Dbo backend: ${LIBWTDBO_SQLITE}")
-    target_link_libraries(cxxblog ${LIBWTDBO_SQLITE})
+    target_link_libraries(cxxblog PUBLIC ${LIBWTDBO_SQLITE})
 endif()
 
 if (LIBWTDBO_POSTGRES)
     message(" -- Adding PostgreSQL Wt::Dbo backend: ${LIBWTDBO_POSTGRES}")
-    target_link_libraries(cxxblog ${LIBWTDBO_POSTGRES})
+    target_link_libraries(cxxblog PUBLIC ${LIBWTDBO_POSTGRES})
 endif()
 
 if (LIBWTDBO_MYSQL)
     message(" -- Adding MySQL Wt::Dbo backend: ${LIBWTDBO_MYSQL}")
-    target_link_libraries(cxxblog ${LIBWTDBO_MYSQL})
+    target_link_libraries(cxxblog PUBLIC ${LIBWTDBO_MYSQL})
 endif()
 
 set(STATIC_RESOURCES
@@ -138,3 +143,25 @@ foreach(RESOURCE ${STATIC_RESOURCES})
     add_custom_target(copy_${RESOURCE_COPY_TARGET_NAME} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE})
     add_dependencies(cxxblog copy_${RESOURCE_COPY_TARGET_NAME})
 endforeach()
+
+install(TARGETS cxxblog
+    DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}
+)
+
+install(TARGETS libcmark
+    DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}
+)
+
+install(TARGETS libcmark-gfm
+    DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}
+)
+
+install(DIRECTORY
+    assets
+    DESTINATION ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/cxxblog
+)
+
+install(DIRECTORY
+    resources
+    DESTINATION ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/cxxblog
+)

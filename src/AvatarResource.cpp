@@ -61,7 +61,7 @@ void AvatarResource::handleRequest(const Wt::Http::Request& request, Wt::Http::R
         response.setMimeType("image/png");
         response.setStatus(200);
         response.setContentLength(avatarBytes.size());
-        response.addHeader("Cache-Control", "max-age=300");
+        response.addHeader("Cache-Control", "max-age=86400");
         response.out().write(reinterpret_cast<const char*>(&avatarBytes[0]), avatarBytes.size());
     }
     catch (const std::exception& e)

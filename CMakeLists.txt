@@ -154,7 +154,7 @@ set(CXXBLOG_INSTALL_DOCROOT cxxblog/docroot)
 # Application files and resources, private.
 install(
     TARGETS cxxblog
-    DESTINATION ${CXXBLOG_INSTALL_APPROOT}
+    DESTINATION cxxblog
 )
 
 install(

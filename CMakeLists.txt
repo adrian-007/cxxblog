@@ -166,6 +166,7 @@ install(
     FILES
     wt_config.xml
     DESTINATION ${CXXBLOG_INSTALL_APPROOT}
+    RENAME wt_config.xml.sample
 )
 
 # Static resources available for everyone.

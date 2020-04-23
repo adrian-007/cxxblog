@@ -87,8 +87,8 @@ target_link_libraries(cxxblog
     stdc++fs
 
     PRIVATE
-    libcmark
-    libcmark-gfm
+    cmark
+    cmark-gfm
 )
 
 if (LIBWTDBO_SQLITE)
@@ -105,6 +105,10 @@ if (LIBWTDBO_MYSQL)
     message(" -- Adding MySQL Wt::Dbo backend: ${LIBWTDBO_MYSQL}")
     target_link_libraries(cxxblog PUBLIC ${LIBWTDBO_MYSQL})
 endif()
+
+# TODO:
+# 1. Break down resources to approot and docroot target resources.
+# 2. Write proper targets that could be used in install process.
 
 set(STATIC_RESOURCES
     wt_config.xml
@@ -140,28 +144,37 @@ foreach(RESOURCE ${STATIC_RESOURCES})
     )
 
     string(REPLACE "/" "_" RESOURCE_COPY_TARGET_NAME ${RESOURCE})
-    add_custom_target(copy_${RESOURCE_COPY_TARGET_NAME} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE})
-    add_dependencies(cxxblog copy_${RESOURCE_COPY_TARGET_NAME})
+    add_custom_target(${__target_command}_${RESOURCE_COPY_TARGET_NAME} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE})
+    add_dependencies(cxxblog ${__target_command}_${RESOURCE_COPY_TARGET_NAME})
 endforeach()
 
-install(TARGETS cxxblog
-    DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}
+set(CXXBLOG_INSTALL_APPROOT cxxblog/approot)
+set(CXXBLOG_INSTALL_DOCROOT cxxblog/docroot)
+
+# Application files and resources, private.
+install(
+    TARGETS cxxblog
+    DESTINATION ${CXXBLOG_INSTALL_APPROOT}
 )
 
-install(TARGETS libcmark
-    DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}
+install(
+    DIRECTORY xml
+    DESTINATION ${CXXBLOG_INSTALL_APPROOT}
 )
 
-install(TARGETS libcmark-gfm
-    DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}
+install(
+    FILES
+    wt_config.xml
+    DESTINATION ${CXXBLOG_INSTALL_APPROOT}
 )
 
-install(DIRECTORY
-    assets
-    DESTINATION ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/cxxblog
+# Static resources available for everyone.
+install(
+    DIRECTORY assets
+    DESTINATION ${CXXBLOG_INSTALL_DOCROOT}
 )
 
-install(DIRECTORY
-    resources
-    DESTINATION ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/cxxblog
+install(
+    DIRECTORY resources
+    DESTINATION ${CXXBLOG_INSTALL_DOCROOT}
 )

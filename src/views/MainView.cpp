@@ -22,7 +22,6 @@
 #include "PostsListView.h"
 #include "PostView.h"
 #include "EditorView.h"
-#include "JobOffersView.h"
 #include "Markdown.h"
 
 #include <Wt/WApplication.h>
@@ -45,13 +44,13 @@ MainView::MainView(Session& session, Wt::Dbo::SqlConnectionPool& dbConnectionPoo
     app->messageResourceBundle().use(Wt::WApplication::appRoot() + "xml/views");
     app->messageResourceBundle().use(Wt::WApplication::appRoot() + "xml/strings");
 
-    app->useStyleSheet(Wt::WApplication::appRoot() + "assets/css/highlight/default.min.css");
-    app->useStyleSheet(Wt::WApplication::appRoot() + "assets/css/highlight/vs.min.css");
-    app->useStyleSheet(Wt::WApplication::appRoot() + "assets/css/cxxblog.css");
-    app->useStyleSheet(Wt::WApplication::appRoot() + "assets/font-awesome/css/all.min.css");
+    app->useStyleSheet("assets/css/highlight/default.min.css");
+    app->useStyleSheet("assets/css/highlight/vs.min.css");
+    app->useStyleSheet("assets/css/cxxblog.css");
+    app->useStyleSheet("assets/font-awesome/css/all.min.css");
 
-    app->require(Wt::WApplication::appRoot() + "assets/js/highlight.min.js");
-    app->require(Wt::WApplication::appRoot() + "assets/js/cxxblog.js");
+    app->require("assets/js/highlight.min.js");
+    app->require("assets/js/cxxblog.js");
 
     app->internalPathChanged().connect(this, &MainView::onInternalPathChanged);
 

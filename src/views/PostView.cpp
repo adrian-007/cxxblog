@@ -48,19 +48,13 @@
 namespace
 {
     constexpr std::string_view g_DisqusScript = R"jsCode(
-        var disqus_config = function () {
-            this.page.url = '%1%';
-            this.page.identifier = '%2%';
-        };
-
-        (function() {  // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-
-            s.src = '//%3%.disqus.com/embed.js';
-
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                this.page.url = "%1%";
+                this.page.identifier = "%2%";
+            }
+        });
     )jsCode";
 
     struct DraftFormModel : public Wt::WFormModel
@@ -683,19 +677,17 @@ void PostView::bindPost(Wt::WTemplate* view, const PostType& post)
     shareButtonsView->bindString("postUrl", absoluteUrl);
     shareButtonsView->bindString("encodedPostUrl", Wt::Utils::urlEncode(absoluteUrl));
 
-    auto disqusShortname { _session.siteConfig().disqusShortname() };
-
-    if (disqusShortname.empty())
-    {
-        view->bindEmpty("comments");
-    }
-    else
+    if (!_session.siteConfig().disqusShortname().empty())
     {
         auto stubContainer = view->bindNew<Wt::WContainerWidget>("comments");
         stubContainer->setId("disqus_thread");
 
-        auto disqusScript { boost::format(std::string { g_DisqusScript }) % absoluteUrl % PostResolver::id(post) % disqusShortname };
+        auto disqusScript { boost::format(std::string { g_DisqusScript }) % absoluteUrl % PostResolver::id(post) };
         view->doJavaScript(disqusScript.str());
+    }
+    else
+    {
+        view->bindEmpty("comments");
     }
 }
 

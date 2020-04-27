@@ -52,6 +52,9 @@ MainView::MainView(Session& session, Wt::Dbo::SqlConnectionPool& dbConnectionPoo
     app->require("assets/js/highlight.min.js");
     app->require("assets/js/cxxblog.js");
 
+    if (auto disqusShortname = session.siteConfig().disqusShortname(); !disqusShortname.empty())
+        app->require("//" + disqusShortname + ".disqus.com/embed.js");
+
     app->internalPathChanged().connect(this, &MainView::onInternalPathChanged);
 
     auto view = std::make_unique<Wt::WTemplate>(tr("mainView"));

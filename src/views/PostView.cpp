@@ -43,8 +43,26 @@
 #include <variant>
 #include <numeric>
 
+#include <boost/format.hpp>
+
 namespace
 {
+    constexpr std::string_view g_DisqusScript = R"jsCode(
+        var disqus_config = function () {
+            this.page.url = '%1%';
+            this.page.identifier = '%2%';
+        };
+
+        (function() {  // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//%3%.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    )jsCode";
+
     struct DraftFormModel : public Wt::WFormModel
     {
         static Field TitleField;
@@ -616,6 +634,9 @@ void PostView::bindPost(Wt::WTemplate* view, const PostType& post)
 
     struct PostResolver
     {
+        static auto id(const dbo::ptr<Post>& post) { return post.id(); }
+        static auto id(const dbo::ptr<PostDraft>& draft) { return draft->post.id(); }
+
         static auto author(const dbo::ptr<Post>& post) { return post->author; }
         static auto author(const dbo::ptr<PostDraft>& draft) { return draft->post->author; }
 
@@ -661,6 +682,21 @@ void PostView::bindPost(Wt::WTemplate* view, const PostType& post)
     shareButtonsView->addFunction("tr", &Wt::WTemplate::Functions::tr);
     shareButtonsView->bindString("postUrl", absoluteUrl);
     shareButtonsView->bindString("encodedPostUrl", Wt::Utils::urlEncode(absoluteUrl));
+
+    auto disqusShortname { _session.siteConfig().disqusShortname() };
+
+    if (disqusShortname.empty())
+    {
+        view->bindEmpty("comments");
+    }
+    else
+    {
+        auto stubContainer = view->bindNew<Wt::WContainerWidget>("comments");
+        stubContainer->setId("disqus_thread");
+
+        auto disqusScript { boost::format(std::string { g_DisqusScript }) % absoluteUrl % PostResolver::id(post) % disqusShortname };
+        view->doJavaScript(disqusScript.str());
+    }
 }
 
 std::string PostView::imageExpression(const std::vector<std::string>& args) const

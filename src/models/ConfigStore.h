@@ -32,6 +32,7 @@ namespace ConfigKeys
     constexpr std::string_view SiteName { "site.name" };
     constexpr std::string_view SiteAbout { "site.about" };
     constexpr std::string_view SiteFooter { "site.footer" };
+    constexpr std::string_view SiteDisqusShortname { "site.disqusShortname" };
 }
 
 class ConfigStore

@@ -39,12 +39,14 @@ namespace
         static Field SiteNameField;
         static Field AboutField;
         static Field FooterField;
+        static Field DisqusShortnameField;
 
         SiteConfigFormModel(const SiteConfig& siteConfig) : Wt::WFormModel()
         {
             addField(SiteNameField);
             addField(AboutField);
             addField(FooterField);
+            addField(DisqusShortnameField);
 
             auto siteNameRegex { siteConfig.siteNameRegex() };
             if (!siteNameRegex.empty())
@@ -55,19 +57,24 @@ namespace
                 setValidator(AboutField, std::make_shared<Wt::WRegExpValidator>(aboutRegex));
 
             auto footerRegex { siteConfig.footerRegex() };
-
             if (!footerRegex.empty())
                 setValidator(FooterField, std::make_shared<Wt::WRegExpValidator>(footerRegex));
+
+            auto disqusShortnameRegex { siteConfig.disqusShortnameRegex() };
+            if (!disqusShortnameRegex.empty())
+                setValidator(DisqusShortnameField, std::make_shared<Wt::WRegExpValidator>(disqusShortnameRegex));
 
             setValue(SiteNameField, siteConfig.siteName());
             setValue(AboutField, siteConfig.about());
             setValue(FooterField, siteConfig.footer());
+            setValue(DisqusShortnameField, siteConfig.disqusShortname());
         }
     };
 
     SiteConfigFormModel::Field SiteConfigFormModel::SiteNameField = "name";
     SiteConfigFormModel::Field SiteConfigFormModel::AboutField = "about";
     SiteConfigFormModel::Field SiteConfigFormModel::FooterField = "footer";
+    SiteConfigFormModel::Field SiteConfigFormModel::DisqusShortnameField = "disqusShortname";
 
     struct SiteConfigFormView : public Wt::WTemplateFormView
     {
@@ -82,6 +89,7 @@ namespace
             setFormWidget(SiteConfigFormModel::SiteNameField, std::make_unique<Wt::WLineEdit>());
             setFormWidget(SiteConfigFormModel::AboutField, std::make_unique<Wt::WTextArea>());
             setFormWidget(SiteConfigFormModel::FooterField, std::make_unique<Wt::WLineEdit>());
+            setFormWidget(SiteConfigFormModel::DisqusShortnameField, std::make_unique<Wt::WLineEdit>());
 
             bindNew<Wt::WPushButton>("saveButton", tr("str.save"))->clicked().connect(this, &SiteConfigFormView::save);
 
@@ -111,6 +119,7 @@ namespace
                 siteConfig.siteName(_model->valueText(SiteConfigFormModel::SiteNameField).toUTF8());
                 siteConfig.about(_model->valueText(SiteConfigFormModel::AboutField).toUTF8());
                 siteConfig.footer(_model->valueText(SiteConfigFormModel::FooterField).toUTF8());
+                siteConfig.disqusShortname(_model->valueText(SiteConfigFormModel::DisqusShortnameField).toUTF8());
 
                 t.commit();
 

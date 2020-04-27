@@ -40,6 +40,10 @@ struct SiteConfig
     void footer(std::string value) { _footer.modify()->value = std::move(value); }
     auto footerRegex() const { return _footer->valueRegex; }
 
+    auto disqusShortname() const { return _disqusShortname->value; }
+    void disqusShortname(std::string value) { _disqusShortname.modify()->value = std::move(value); }
+    auto disqusShortnameRegex() const { return _disqusShortname->valueRegex; }
+
 private:
     friend class Session;
 
@@ -48,4 +52,5 @@ private:
     dbo::ptr<ConfigStore> _siteName;
     dbo::ptr<ConfigStore> _about;
     dbo::ptr<ConfigStore> _footer;
+    dbo::ptr<ConfigStore> _disqusShortname;
 };

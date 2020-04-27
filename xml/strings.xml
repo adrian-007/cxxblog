@@ -85,4 +85,5 @@
     <message id="str.share">Share</message>
     <message id="str.job">Job</message>
     <message id="str.loadingPleaseWait">Loading, please wait...</message>
+    <message id="str.disqusShortname">Disqus Shortname</message>
 </messages>

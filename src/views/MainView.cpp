@@ -53,7 +53,11 @@ MainView::MainView(Session& session, Wt::Dbo::SqlConnectionPool& dbConnectionPoo
     app->require("assets/js/cxxblog.js");
 
     if (auto disqusShortname = session.siteConfig().disqusShortname(); !disqusShortname.empty())
+    {
+        // Create a stub function, we'll be using DISQUS.reset anyway.
+        app->doJavaScript("var disqus_config = function () { };");
         app->require("//" + disqusShortname + ".disqus.com/embed.js");
+    }
 
     app->internalPathChanged().connect(this, &MainView::onInternalPathChanged);
 

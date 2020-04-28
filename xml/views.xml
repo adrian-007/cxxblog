@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        ${comments}
+        ${comments class="postComments"}
     </message>
 
     <message id="postView.shareButtons">

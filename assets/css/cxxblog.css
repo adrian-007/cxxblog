@@ -86,6 +86,17 @@ div.contentView div.postContent {
     color: #606060;
 }
 
+div.contentView div.postContent h1,
+div.contentView div.postContent h2,
+div.contentView div.postContent h3 {
+    margin-top: 40px;
+}
+
+div.contentView div.postContent h4,
+div.contentView div.postContent h5 {
+    margin-top: 20px;
+}
+
 div.contentView div.postContent pre {
     background: #fcfcfc;
     margin-top: 20px;

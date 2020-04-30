@@ -25,5 +25,12 @@
             <property name="dbType">sqlite</property>
         </properties>
 
+        <UA-Compatible>ie=edge,chrome=1</UA-Compatible>
+
+        <head-matter user-agent=".*">
+            <meta name="robots" content="noarchive,noimageindex" />
+            <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+        </head-matter>
+
     </application-settings>
 </server>

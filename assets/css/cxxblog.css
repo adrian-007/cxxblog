@@ -116,6 +116,10 @@ div.contentView div.postContent p {
     text-justify: inter-word;
 }
 
+div.contentView div.postComments {
+    margin-top: 70px;
+}
+
 div.mainViewFooter {
     margin: 30px;
     text-align: center;

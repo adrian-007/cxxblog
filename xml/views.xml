@@ -137,6 +137,8 @@
                 </div>
             </div>
         </div>
+
+        ${comments class="postComments"}
     </message>
 
     <message id="postView.shareButtons">
@@ -398,6 +400,18 @@
 
                 <div class="col-sm-5 help-block">
                     ${footer-info}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="${id:disqusShortname}" class="col-sm-2 control-label">${tr:str.disqusShortname}:</label>
+
+                <div class="col-sm-5">
+                    ${disqusShortname}
+                </div>
+
+                <div class="col-sm-5 help-block">
+                    ${disqusShortname-info}
                 </div>
             </div>
 

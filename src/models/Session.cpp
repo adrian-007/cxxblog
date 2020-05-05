@@ -154,6 +154,7 @@ Session::Session(const std::string& basePath, Wt::Dbo::SqlConnectionPool& dbConn
         tryQuery([=] { addNew<ConfigStore>(ConfigKeys::SiteName, "cxxblog", ".+"); });
         tryQuery([=] { addNew<ConfigStore>(ConfigKeys::SiteAbout, "This is a new instance of cxxblog."); });
         tryQuery([=] { addNew<ConfigStore>(ConfigKeys::SiteFooter, "Powered by [cxxblog](https://github.com/adrian-007/cxxblog)"); });
+        tryQuery([=] { addNew<ConfigStore>(ConfigKeys::SiteDisqusShortname, "", "^$|^[a-zA-Z0-9]+[a-zA-Z0-9-.]+[a-zA-Z0-9]+$"); });
 
         // Try to create default keys.
         dbo::Transaction t { *this };
@@ -173,11 +174,16 @@ Session::Session(const std::string& basePath, Wt::Dbo::SqlConnectionPool& dbConn
             {
                 _siteConfig._footer = std::move(cs);
             }
+            else if (cs->key == ConfigKeys::SiteDisqusShortname)
+            {
+                _siteConfig._disqusShortname = std::move(cs);
+            }
         }
 
         assert(_siteConfig._siteName);
         assert(_siteConfig._about);
         assert(_siteConfig._footer);
+        assert(_siteConfig._disqusShortname);
     }
     catch (const std::exception& e)
     {

@@ -62,7 +62,7 @@
     <message id="postView.itemsList.item">
         <div class="row" style="margin-bottom: 60px;">
             <div class="col-sm-12">
-                <h2>${title}</h2>
+                <h1>${title}</h1>
 
                 <div class="postContent">
                     <div class="row">
@@ -108,7 +108,7 @@
     </message>
 
     <message id="postView.show">
-        <h2 class="postViewTitle">${title}</h2>
+        <h1 class="postViewTitle">${title}</h1>
 
         <h5 class="clearfix postHeader" style="margin-bottom: 40px;">
             <div class="pull-left">

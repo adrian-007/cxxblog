@@ -41,7 +41,7 @@ class PostView
     void onToggleEditSave();
     void onSelectDraft(const Wt::WString& buttonLabel, const dbo::ptr<PostDraft>& draft);
     void onSaveDraftAsPost();
-    void onCancelEdit();
+    void onCloseEdit();
     void onDeletePost();
     void onManageAttachments();
 
@@ -70,7 +70,7 @@ class PostView
         Wt::WPushButton* toggleSaveEdit = nullptr;
         Wt::WPushButton* selectDraft = nullptr;
         Wt::WPushButton* saveDraftAsPost = nullptr;
-        Wt::WPushButton* cancelEdit = nullptr;
+        Wt::WPushButton* closeEdit = nullptr;
         Wt::WPushButton* deletePost = nullptr;
         Wt::WPushButton* manageAttachments = nullptr;
     };

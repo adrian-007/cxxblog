@@ -97,7 +97,10 @@ namespace
 
             setFormWidget(DraftFormModel::TitleField, std::make_unique<Wt::WLineEdit>());
             setFormWidget(DraftFormModel::IntroField, std::make_unique<Wt::WTextArea>());
-            setFormWidget(DraftFormModel::ContentField, std::make_unique<Wt::WTextArea>());
+
+            auto contentTextArea { std::make_unique<Wt::WTextArea>() };
+            contentTextArea->resize("auto", 400);
+            setFormWidget(DraftFormModel::ContentField, std::move(contentTextArea));
 
             updateView(_model.get());
         }
@@ -157,8 +160,11 @@ namespace
 
                         t.commit();
 
+                        _currentDraft = targetDraftDbo;
                         return targetDraftDbo;
                     }
+
+                    return dbo::ptr<PostDraft>{};
                 }
             }
             catch (const std::exception& e)
@@ -259,9 +265,9 @@ void PostView::createEditorToolbar()
 
     toolbar->addSeparator();
 
-    // Cancel create / Cancel edit button.
-    _editorControls->cancelEdit = addButton("btn-warning", tr("str.cancel"));
-    _editorControls->cancelEdit->clicked().connect(this, &PostView::onCancelEdit);
+    // Cancel create / Close edit button.
+    _editorControls->closeEdit = addButton("btn-warning", tr("str.close"));
+    _editorControls->closeEdit->clicked().connect(this, &PostView::onCloseEdit);
 
     toolbar->addSeparator();
 
@@ -311,7 +317,7 @@ void PostView::showPostView()
 
         invalidateDraftsMenu();
 
-        _editorControls->cancelEdit->hide();
+        _editorControls->closeEdit->hide();
         _editorControls->manageAttachments->hide();
 
         _editorControls->deletePost->show();
@@ -356,7 +362,9 @@ void PostView::showPostEditView()
 
     if (_editorControls != nullptr)
     {
-        _editorControls->cancelEdit->show();
+        _editorControls->closeEdit->setText(tr(_post ? "str.close" : "str.cancel"));
+
+        _editorControls->closeEdit->show();
         _editorControls->manageAttachments->show();
 
         _editorControls->deletePost->hide();
@@ -402,17 +410,15 @@ void PostView::onToggleVisibility()
 
 void PostView::onToggleEditSave()
 {
-    bool wasEditing = false;
     if (auto draftFormView = resolve<DraftFormView*>("view"))
     {
-        wasEditing = true;
-
         try
         {
             auto result = draftFormView->save();
 
             if (std::holds_alternative<dbo::ptr<Post>>(result))
             {
+                // A new post.
                 auto post = std::get<dbo::ptr<Post>>(result);
 
                 if (post)
@@ -424,12 +430,11 @@ void PostView::onToggleEditSave()
                     {
                         wApp->setInternalPath(_post->url(), true);
                     });
-
-                    return;
                 }
             }
             else if (std::holds_alternative<dbo::ptr<PostDraft>>(result))
             {
+                // A draft (existing post).
                 auto draft = std::get<dbo::ptr<PostDraft>>(result);
 
                 if (draft)
@@ -437,38 +442,34 @@ void PostView::onToggleEditSave()
                     _post = draft->post;
                     _currentDraft = std::move(draft);
 
+                    invalidateDraftsMenu();
+
                     NotificationDialog::show(this, tr("str.postSavedNotificationTitle"), tr("str.postSavedNotificationMessage"));
+                }
+                else
+                {
+                    NotificationDialog::show(this, tr("str.postNotSavedNotificationTitle"), tr("str.postNotModifiedNotificationMessage"));
                 }
             }
             else
             {
-                // Either there were no changes or something unrecoverable has happened.
-                onCancelEdit();
-                return;
+                // Most probably a validation error, stay in edit view until user resolves it or cancels.
             }
         }
         catch (...)
         {
-            return;
         }
+
+        return;
     }
 
     _editorControls->toggleVisibility->enable();
     _editorControls->deletePost->enable();
 
     // Now we need to finish editing.
-    if (wasEditing)
-    {
-        showPostView();
-        _editorControls->toggleSaveEdit->setText(tr("str.edit"));
-        _editorControls->cancelEdit->hide();
-    }
-    else
-    {
-        showPostEditView();
-        _editorControls->toggleSaveEdit->setText(tr("str.save"));
-        _editorControls->cancelEdit->show();
-    }
+    showPostEditView();
+    _editorControls->toggleSaveEdit->setText(tr("str.save"));
+    _editorControls->closeEdit->show();
 }
 
 void PostView::onSelectDraft(const Wt::WString& buttonLabel, const dbo::ptr<PostDraft>& draft)
@@ -514,11 +515,11 @@ void PostView::onSaveDraftAsPost()
     isEditing() ? showPostEditView() : showPostView();
 }
 
-void PostView::onCancelEdit()
+void PostView::onCloseEdit()
 {
     _editorControls->toggleVisibility->enable();
     _editorControls->deletePost->enable();
-    _editorControls->cancelEdit->hide();
+    _editorControls->closeEdit->hide();
 
     _editorControls->toggleSaveEdit->setText(tr("str.edit"));
 
@@ -593,15 +594,13 @@ std::vector<dbo::ptr<PostDraft>> PostView::invalidateDraftsMenu()
 
     auto menu = _editorControls->selectDraft->menu();
     for (auto item : menu->items())
-        menu->removeItem(item);
-
-    _editorControls->selectDraft->show();
+        item->removeFromParent();
 
     auto menuItemText = [](auto prefixTrId, auto p)
     {
         return Wt::WString(tr("str.draftsMenuItemText"))
             .arg(tr(prefixTrId))
-            .arg(p->created.toString("yyyy-MM-dd HH:MM", false));
+            .arg(p->created.toString());
     };
 
     auto item = menu->addItem(menuItemText("str.post", _post));
@@ -617,6 +616,7 @@ std::vector<dbo::ptr<PostDraft>> PostView::invalidateDraftsMenu()
 
     // Initial update of button value.
     _editorControls->selectDraft->setText(_currentDraft ? menuItemText("str.draft", _currentDraft) : menuItemText("str.post", _post));
+    _editorControls->selectDraft->show();
 
     return latestDrafts;
 }

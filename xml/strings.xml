@@ -21,11 +21,14 @@
     <message id="str.cancel">Cancel</message>
     <message id="str.confirmationRequired">Confirmation required</message>
     <message id="str.confirmPostDeleteMessage">Do you really want to delete this post?</message>
+    <message id="str.close">Close</message>
     <message id="str.postVisibilityStatusUpdatedNotificationTitle">Post has been successfully updated</message>
     <message id="str.postPublishedNotificationMessage">Post has been successfully published.</message>
     <message id="str.postHiddenNotificationMessage">Post has been successfully hidden.</message>
     <message id="str.postSavedNotificationTitle">Post saved</message>
     <message id="str.postSavedNotificationMessage">Post was successfully saved.</message>
+    <message id="str.postNotSavedNotificationTitle">Post not saved</message>
+    <message id="str.postNotModifiedNotificationMessage">Post content was not modified.</message>
     <message id="str.unexpectedErrorNotificationTitle">Unexpected error</message>
     <message id="str.unexpectedErrorNotificationMessage">There was an unexpected problem that application could not handle.</message>
     <message id="str.draftSavedAsPostNotificationTitle">Draft saved as post</message>
